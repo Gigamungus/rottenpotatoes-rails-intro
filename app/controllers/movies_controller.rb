@@ -13,7 +13,9 @@ class MoviesController < ApplicationController
     @ratings_to_show = Movie.ratings_to_show session[:show_ratings]
     @movies = Movie.movies_to_show @ratings_to_show, session[:order_by]
     @sort_by = session[:order_by]
-    redirect_to movies_path({redirect: true})
+    if !params[:stop]
+      redirect_to movies_path({redirect: true, stop: true})
+    end
   end
 
   def new
