@@ -7,9 +7,11 @@ class MoviesController < ApplicationController
   end
 
   def index
+    session[:order_by] = params[:order].nil? ? session[:order_by] : params[:order]
+    session[:show_ratings] = params[:ratings].nil? ? session[:show_ratings] : params[:ratings]
     @all_ratings = Movie.all_ratings
-    @ratings_to_show = Movie.ratings_to_show params[:ratings]
-    @movies = Movie.movies_to_show @ratings_to_show
+    @ratings_to_show = Movie.ratings_to_show session[:show_ratings]
+    @movies = Movie.movies_to_show @ratings_to_show, session[:order_by]
   end
 
   def new

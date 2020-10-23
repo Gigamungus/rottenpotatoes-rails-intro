@@ -7,12 +7,24 @@ class Movie < ActiveRecord::Base
     ratings || all_ratings
   end
   
-  def self.movies_to_show ratings_to_show
+  def self.movies_to_show ratings_to_show, order_by
     puts ratings_to_show
     if ratings_to_show.kind_of?(Array)
-      Movie.where(rating: ratings_to_show)
+      if order_by.nil?
+        Movie.where(rating: ratings_to_show)
+      elsif order_by.eql? 'title'
+        Movie.where(rating: ratings_to_show).order(title: :asc)
+      elsif order_by.eql? 'release'
+        Movie.where(rating: ratings_to_show).order(release_date: :desc)
+      end
     else
-      Movie.where(rating: ratings_to_show.keys)
+      if order_by.nil?
+        Movie.where(rating: ratings_to_show.keys)
+      elsif order_by.eql? 'title'
+        Movie.where(rating: ratings_to_show.keys).order(title: :asc)
+      elsif order_by.eql? 'release'
+        Movie.where(rating: ratings_to_show.keys).order(release_date: :desc)
+      end
     end
   end
 end
