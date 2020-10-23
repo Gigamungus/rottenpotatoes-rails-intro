@@ -15,13 +15,13 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <% if @sort_by == :title %>
+      <% if @sort_by.eql? 'title' %>
       <th class='hilite p-3 mb-3 bg-warning text-blue'><%= link_to 'Movie Title', movies_path({order: :title}), {id: 'title_header'} =%></th>
       <% else %>
       <th><%= link_to 'Movie Title', movies_path({order: :title}), {id: 'title_header'} =%></th>
       <% end %>
       <th>Rating</th>
-      <% if @sort_by == :release %>
+      <% if @sort_by.eql? 'release' %>
       <th class='hilite p-3 mb-3 bg-warning text-blue'><%= link_to 'Release Date', movies_path({order: :release}), {id: 'release_date_header'} =%></th>
       <% else %>
       <th><%= link_to 'Release Date', movies_path({order: :release}), {id: 'release_date_header'} =%></th>
